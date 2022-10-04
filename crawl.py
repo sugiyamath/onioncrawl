@@ -27,6 +27,8 @@ def crawl():
             else:
                 if x.startswith("/") and r.url.endswith("/"):
                     x = x[1:]
+                elif not x.startswith("/") and not r.url.endswith("/"):
+                    x = "/" + x                
                 URLS.add(r.url+x)
         ARRIVED.add(url)
 
