@@ -17,6 +17,7 @@ def crawl():
         try:
             r = requests.get(url, timeout=10)
         except:
+            ARRIVED.add(url)
             continue
         html = r.content.decode("utf-8")
         _save(html, url)
