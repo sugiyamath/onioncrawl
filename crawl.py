@@ -16,11 +16,11 @@ def crawl():
             continue
         try:
             r = requests.get(url, timeout=10)
+            html = r.content.decode("utf-8")
+            _save(html, url)
         except:
             ARRIVED.add(url)
             continue
-        html = r.content.decode("utf-8")
-        _save(html, url)
         for x in re.findall(reg, html):
             if x.startswith("http"):
                 URLS.add(x)
