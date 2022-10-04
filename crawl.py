@@ -12,6 +12,8 @@ def crawl():
     URLS = set(_load_initials())
     while URLS:
         url = URLS.pop()
+        if ".onion" not in url:
+            continue
         if url in ARRIVED:
             continue
         try:
