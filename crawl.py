@@ -34,11 +34,13 @@ def crawl():
                 URLS.add(r.url+x)
         ARRIVED.add(url)
 
+
 def _load_initials(path="initials.txt"):
     with open(path) as f:
         for line in f:
             if line.startswith("http"):
                 yield line.strip()
+
 
 def _save(html, url, directory="download"):
     head = f"<!-- URL: {url} -->"
@@ -47,14 +49,13 @@ def _save(html, url, directory="download"):
     elif "http://" in url:
         tmp = url.replace("http://", "")
     else:
-        return False
+        return
     path = os.path.join(directory, *tmp.split("/"))
-    run(f"mkdir -p {path}", shell=True)
+    os.makedirs(path, exist_ok=True)
     p = os.path.join(path, "data.html")
     if not os.path.isfile(p):
         with open(p, "w") as f:
             f.write(head + "\n" + html)
-    return True
 
 if __name__ == "__main__":
     crawl()
